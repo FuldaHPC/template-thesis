@@ -1,0 +1,157 @@
+% !TeX root = ../../Thesis.tex
+\begin{titlepage}
+  \thispagestyle{empty}
+  % An outline-only bookmark: the title page must not appear in the table of contents, so this is \pdfbookmark rather than an \addcontentsline.
+  \pdfbookmark[0]{\ThesisStrTitlePage}{titlepage}
+  \centering
+
+  % Measure the wrapped title before placing it.
+  % Long titles first get a little more vertical room; only when that is not
+  % enough is the font reduced.
+  \newsavebox{\ThesisTitleBox}
+  \newsavebox{\ThesisScaledTitleBox}
+  \newlength{\ThesisTitleHeight}
+  \newlength{\ThesisTitleTopSpace}
+  \newlength{\ThesisTitleShift}
+  \newcommand{\BuildThesisTitleBox}[2]{%
+    \sbox{\ThesisTitleBox}{%
+      \begin{minipage}{.88\textwidth}
+        \raggedright
+        {\fontsize{#1}{#2}\selectfont\bfseries\color{hpcblack}
+          \ThesisTitle\par}
+      \end{minipage}%
+    }%
+    \setlength{\ThesisTitleHeight}{%
+      \dimexpr\ht\ThesisTitleBox+\dp\ThesisTitleBox\relax}%
+  }
+
+  \BuildThesisTitleBox{29}{35}
+  \ifdim\ThesisTitleHeight>37mm
+    \BuildThesisTitleBox{25}{30}
+  \fi
+  \ifdim\ThesisTitleHeight>37mm
+    \BuildThesisTitleBox{22}{27}
+  \fi
+  \ifdim\ThesisTitleHeight>37mm
+    \BuildThesisTitleBox{19}{23}
+  \fi
+  % Exceptionally long titles may still exceed the available height at the
+  % smallest regular step.
+  % Scale that final setting just enough to keep the complete title page
+  % together.
+  \ifdim\ThesisTitleHeight>37mm
+    \sbox{\ThesisScaledTitleBox}{%
+      \resizebox*{!}{37mm}{\usebox{\ThesisTitleBox}}}%
+    \sbox{\ThesisTitleBox}{\usebox{\ThesisScaledTitleBox}}%
+    \setlength{\ThesisTitleHeight}{%
+      \dimexpr\ht\ThesisTitleBox+\dp\ThesisTitleBox\relax}%
+  \fi
+
+  % Two title lines use the original spacing.
+  % For every additional amount of title height, half of that amount is
+  % recovered above the central block.
+  \setlength{\ThesisTitleTopSpace}{23mm}
+  \ifdim\ThesisTitleHeight>70pt
+    \setlength{\ThesisTitleShift}{\ThesisTitleHeight}
+    \addtolength{\ThesisTitleShift}{-70pt}
+    \divide\ThesisTitleShift by 2
+    \addtolength{\ThesisTitleTopSpace}{-\ThesisTitleShift}
+  \fi
+  \ifdim\ThesisTitleTopSpace<9mm
+    \setlength{\ThesisTitleTopSpace}{9mm}
+  \fi
+
+  % Neither logo is covered by the MIT License; see LICENSE for the terms.
+  % The university logo may only be scaled: do not crop it, recolor it, redraw it, or use parts of it.
+  % Outside Fulda University of Applied Sciences, delete both files and include your own institution's logo here instead.
+  % A deleted logo leaves its slot empty rather than stopping the build.
+  % \IfFileExists does not know \graphicspath, hence the figures/ prefix that \includegraphics must not carry.
+  \begin{minipage}[c]{.68\textwidth}
+    \raggedright
+    \IfFileExists{figures/00/hs-fulda_logo_2024.png}
+      {\includegraphics[width=.92\linewidth]{00/hs-fulda_logo_2024.png}}
+      {\strut}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{.13\textwidth}
+    \raggedleft
+    \IfFileExists{figures/00/FuldaHPC_Color_Full_Circle.pdf}
+      {\includegraphics[width=\linewidth]{00/FuldaHPC_Color_Full_Circle}}
+      {\strut}
+  \end{minipage}
+
+  \vspace{6mm}
+
+  \noindent
+  {\color{hpcgreen}\rule{.72\textwidth}{1.2pt}}%
+  {\color{hpcblue}\rule{.28\textwidth}{1.2pt}}
+
+  \vspace{\ThesisTitleTopSpace}
+
+  \begin{minipage}{.88\textwidth}
+    \raggedright
+    {\sffamily\bfseries\small\color{hpcgreen}
+      \MakeUppercase{\ThesisTypeName}\par}
+
+    \vspace{9mm}
+
+    \usebox{\ThesisTitleBox}
+
+    \vspace{10mm}
+
+    {\large\color{hpcgray}
+      \ThesisStrDepartment\\
+      \ThesisStrUniversity\par}
+
+    \vspace{8mm}
+
+    \begin{tikzpicture}
+      \fill[hpcgreen] (0,0) circle (1.5mm);
+      \draw[hpcblack!55,line width=.7pt] (0,0)--(18mm,0);
+      \fill[hpcblue] (18mm,0) circle (1.5mm);
+      \draw[hpcblack!22,line width=.5pt] (21mm,0)--(73mm,0);
+    \end{tikzpicture}
+  \end{minipage}
+
+  \vfill
+
+  \begin{minipage}{.88\textwidth}
+    \noindent{\color{hpcblack!22}\rule{\textwidth}{.5pt}}\par
+    \vspace{8mm}
+
+    % Explicit top alignment avoids baseline shifts between labels and values.
+    \newcommand{\TitleField}[2]{%
+      \noindent
+      \begin{minipage}[t]{.32\linewidth}
+        \vspace{0pt}
+        \raggedright
+        {\sffamily\small\color{hpcgray}\strut #1\par}
+      \end{minipage}%
+      \hfill
+      \begin{minipage}[t]{.62\linewidth}
+        \vspace{0pt}
+        {\strut #2\par}
+      \end{minipage}%
+      \par\vspace{.65em}
+    }
+
+    \TitleField{\ThesisStrSubmittedBy}{\ThesisAuthor}
+    \TitleField{\ThesisStrStudentId}{\ThesisMatriculationNumber}
+    % The study program row disappears when \ThesisProgram is left empty.
+    \ifdefempty{\ThesisProgram}{}{\TitleField{\ThesisStrProgram}{\ThesisProgram}}
+    \TitleField{\ThesisStrEmail}{\href{mailto:\ThesisEmail}{\ThesisEmail}}
+
+    \vspace{.35em}
+    \TitleField{\ThesisStrSupervisors}{%
+      \ThesisSupervisorOne\\
+      \ThesisSupervisorTwo}
+
+    \vspace{.35em}
+    \TitleField{\ThesisStrSubmissionDate}{\ResolvedThesisSubmissionDate}
+
+    \vspace{5mm}
+    \noindent{\color{hpcblack!22}\rule{\textwidth}{.5pt}}
+  \end{minipage}
+
+  \vspace{9mm}
+\end{titlepage}

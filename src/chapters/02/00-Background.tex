@@ -1,0 +1,46 @@
+% !TeX root = ../../Thesis.tex
+\ThesisChapter{\ThesisText{Background}{Grundlagen}}{ch:background}
+  {TODO: Add a brief chapter overview. \\
+  This chapter explains the domain-specific and technical foundations needed to understand the thesis.}
+
+% TODO: Introduce the technical and conceptual background required to understand the thesis.
+%
+Explain the fundamental concepts, terminology, technologies, methods, and theoretical principles on which the thesis is based.
+The chapter should provide readers with the necessary context to understand the problem, the proposed approach, and the subsequent evaluation.
+
+Possible contents include:
+\begin{itemize}
+  \item definitions of relevant terms and concepts,
+  \item theoretical foundations and established models,
+  \item technologies, frameworks, protocols, or algorithms used in the thesis,
+  \item the domain-specific context of the research problem,
+  \item assumptions and technical constraints that are important for the remainder of the thesis, and
+  \item a description of the benchmarks used.
+\end{itemize}
+
+Focus only on background information that is directly relevant to the thesis.
+Detailed comparisons with existing research and related approaches should normally be presented in the related work chapter.
+
+% Example for numbered equations and for the acronyms declared in src/acronyms.tex.
+\section{\ThesisText{Example Definitions}{Beispiel: Definitionen}}
+\label{sec:example-definitions}
+
+The first use of an acronym expands it automatically, so \ac{hpc} appears in full here and as a short form from the next use onwards.
+Declare each acronym once in \texttt{src/acronyms.tex} and never spell one out by hand.
+
+The speedup of a parallel program on $p$ processing elements follows from the sequential runtime $T(1)$ and the parallel runtime $T(p)$:
+
+\begin{equation}
+  \label{eq:speedup}
+  S(p) = \frac{T(1)}{T(p)}
+\end{equation}
+
+Parallel efficiency relates that speedup to the number of processing elements used to reach it:
+
+\begin{equation}
+  \label{eq:efficiency}
+  E(p) = \frac{S(p)}{p}
+\end{equation}
+
+Equation~\eqref{eq:speedup} and Equation~\eqref{eq:efficiency} are applied to measured data in Chapter~\ref{ch:evaluation}.
+A program distributed across several \ac{hpc} nodes with \ac{mpi} is assessed in exactly the same way.

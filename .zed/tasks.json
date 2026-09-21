@@ -1,0 +1,54 @@
+[
+  {
+    "label": "make",
+    "command": "make",
+    "args": []
+  },
+  {
+    "label": "make view",
+    "command": "make",
+    "args": ["view"]
+  },
+  {
+    "label": "make draft",
+    "command": "make",
+    "args": ["draft"]
+  },
+  {
+    "label": "make view-draft",
+    "command": "make",
+    "args": ["view-draft"]
+  },
+  {
+    "//": "Runs latexmk -pvc, which keeps rebuilding until you stop it.",
+    "label": "make watch",
+    "command": "make",
+    "args": ["watch"]
+  },
+  {
+    "label": "make figures",
+    "command": "make",
+    "args": ["figures"]
+  },
+  {
+    "label": "make lint",
+    "command": "make",
+    "args": ["lint"]
+  },
+  {
+    "label": "make submit-check",
+    "command": "make",
+    "args": ["submit-check"]
+  },
+  {
+    "//": "Deletes tmp/ and everything in out/ except Thesis.pdf. Sources are never touched.",
+    "label": "make clean",
+    "command": "make",
+    "args": ["clean"]
+  },
+  {
+    "label": "make help",
+    "command": "make",
+    "args": ["help"]
+  }
+]

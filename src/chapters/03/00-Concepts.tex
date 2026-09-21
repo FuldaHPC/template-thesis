@@ -1,0 +1,44 @@
+% !TeX root = ../../Thesis.tex
+\ThesisChapter
+  {\ThesisText{Concepts and Architecture}{Konzepte und Architektur}}
+  {ch:concepts}
+  {TODO: Add a brief chapter overview. \\
+  This chapter derives requirements and describes the concepts, design decisions, and resulting architecture.}
+
+% TODO: Describe the concepts and architecture developed or used in this thesis.
+
+This chapter presents the concrete solution approach of the thesis.
+It should explain the main concepts, design decisions, components, interfaces, and interactions that form the proposed system or method.
+
+Possible contents include:
+\begin{itemize}
+  \item the requirements and design goals,
+  \item the main concepts of the proposed solution,
+  \item the overall system architecture,
+  \item the responsibilities of individual components,
+  \item the interfaces and communication between components,
+  \item relevant data flows or processing steps, and
+  \item important architectural and design decisions.
+\end{itemize}
+
+Clearly explain how the proposed concepts address the problem introduced earlier in the thesis.
+Diagrams may be used to illustrate the architecture, components, interfaces, and data flows.
+
+This chapter should focus on the specific solution developed or applied in the thesis.
+General theories, technologies, terminology, and other knowledge required to understand the work belong in the background chapter.
+Implementation-specific details should be presented in the implementation chapter.
+
+% Example for a diagram drawn directly in LaTeX with TikZ.
+\section{\ThesisText{Example Architecture Diagram}{Beispiel: Architekturdiagramm}}
+\label{sec:example-architecture-diagram}
+
+For diagrams and other freely designed graphics, draw.io / diagrams.net may be used:~\url{https://app.diagrams.net/}
+
+\textbf{Important:} Every figure generated entirely or partially using an AI-based tool must be explicitly identified and properly referenced.
+The use of AI must be clearly disclosed in the corresponding figure caption.
+
+Figure~\ref{fig:example-architecture} sketches a scheduler that distributes work to several compute nodes.
+Diagrams of this size can be drawn directly in LaTeX with TikZ, which keeps them vector-based and matches the fonts and colors of the surrounding text.
+The source is stored in the chapter-specific figure folder and included like any other asset:
+
+\input{figures/03/example-architecture}

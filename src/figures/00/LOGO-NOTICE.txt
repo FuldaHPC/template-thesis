@@ -1,0 +1,21 @@
+The logos in this folder are NOT covered by the MIT License of this repository.
+The binding wording is in the LICENSE file at the repository root; this file
+repeats it so that the notice travels with the logos.
+
+hs-fulda_logo_2024.png
+
+  A trademark and copyrighted work of Fulda University of Applied Sciences.
+  It is included solely so that students of Fulda University of Applied
+  Sciences can produce a thesis title page that complies with the university's
+  corporate design. No modification, recoloring, extraction of individual
+  elements, or use outside this specific purpose is permitted.
+
+  If you reuse this template outside Fulda University of Applied Sciences,
+  remove this file and replace it with your own institution's logo.
+
+FuldaHPC_Color_Full_Circle.pdf
+
+  The logo of Fulda HPC, copyright (c) Jonas Posner, all rights reserved.
+  It is included so that theses written in the Fulda HPC group can carry the
+  group's logo on the title page. Any other use requires permission from the
+  copyright holder.

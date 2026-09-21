@@ -1,0 +1,48 @@
+% !TeX root = ../../Thesis.tex
+\ThesisChapter
+  {\ThesisText{Discussion}{Diskussion}}
+  {ch:discussion}
+  {TODO: Add a brief chapter overview. \\
+  This chapter interprets the results, positions them against the related work, and examines their significance, limitations, and threats to validity.}
+
+% TODO: Interpret the results presented in the evaluation chapter.
+
+The evaluation chapter reports what was measured.
+This chapter explains what those measurements mean.
+
+Possible contents include:
+\begin{itemize}
+  \item the interpretation of each significant result, including the unexpected ones,
+  \item the comparison of these results with the approaches surveyed in the related work chapter,
+  \item an assessment of whether the objectives and requirements of the thesis were met,
+  \item the practical implications of the findings, and
+  \item the limitations of the proposed approach.
+\end{itemize}
+
+Explain similarities, differences, advantages, and the possible reasons for differing results.
+Do the results confirm, extend, or contradict existing findings?
+
+An unexpected or negative result is a legitimate outcome and is worth discussing carefully.
+Explaining why something did not work is often more informative than reporting that something did.
+
+Do not introduce new experimental results in this chapter.
+New results belong in the evaluation chapter, where they are presented before being interpreted here.
+
+\section{\ThesisText{Threats to Validity}{Validitätsbedrohungen}}
+\label{sec:threats-to-validity}
+
+% TODO: Discuss what could undermine the conclusions of this thesis.
+
+A thesis that names its own weaknesses is more convincing than one that claims to have none.
+An unacknowledged threat that an examiner spots is far more damaging than one that is stated openly.
+
+Consider at least the following categories:
+
+\begin{itemize}
+  \item Internal validity: could the observed effect have a cause other than the one claimed?
+  \item External validity: how far do the results generalize beyond the tested system, workloads, and scale?
+  \item Construct validity: do the chosen metrics actually measure the property of interest?
+\end{itemize}
+Typical threats in systems and performance work include measurement noise with too few repetitions, results obtained on a single machine or cluster, a workload selection that happens to favor the proposed approach, and extrapolation beyond the scale that was actually measured.
+
+State for each threat how it was mitigated, or why it could not be.

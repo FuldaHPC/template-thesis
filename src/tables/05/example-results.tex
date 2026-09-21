@@ -1,0 +1,24 @@
+% !TeX root = ../../Thesis.tex
+\begin{table}[htbp]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.25}
+  \setlength{\tabcolsep}{12pt}
+  % The S columns come from siunitx and align the numbers on the decimal marker.
+  % Header cells must be braced so that siunitx does not try to parse them as numbers.
+  \begin{tabular}{r S[table-format=3.1] S[table-format=1.2] S[table-format=3.1]}
+    \toprule
+    {\textbf{\ThesisText{Compute nodes}{Rechenknoten}}} &
+    {\textbf{\ThesisText{Runtime}{Laufzeit}\ (\unit{\second})}} &
+    {\textbf{Speedup}} &
+    {\textbf{\ThesisText{Efficiency}{Effizienz}\ (\unit{\percent})}} \\
+    \midrule
+    1 & 120.0 & 1.00 & 100.0 \\
+    2 & 66.7  & 1.80 & 90.0  \\
+    4 & 37.5  & 3.20 & 80.0  \\
+    8 & 23.5  & 5.11 & 63.9  \\
+    \bottomrule
+  \end{tabular}
+  \caption{\ThesisText{Example scaling results for an illustrative workload.}{Beispielhafte Skalierungsergebnisse für eine illustrative Anwendung.}}
+  \label{tab:example-results}
+\end{table}

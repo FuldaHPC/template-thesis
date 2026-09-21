@@ -1,0 +1,524 @@
+% !TeX root = Thesis.tex
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{thesis}[2026/07/31 Fulda University of Applied Sciences thesis template]
+
+\RequirePackage{etoolbox}
+
+% ---------------------------------------------------------------------------
+% Configuration
+% ---------------------------------------------------------------------------
+% thesis-config.tex is read before this package.
+% The defaults below keep an older configuration file working after an update.
+
+\providecommand{\ThesisLanguage}{english}
+\providecommand{\ThesisDraft}{false}
+\providecommand{\ThesisProgram}{}
+\providecommand{\ThesisKeywords}{}
+
+\newtoggle{thesisbachelor}
+\ifdefstring{\ThesisType}{bachelor}
+  {\toggletrue{thesisbachelor}}
+  {\ifdefstring{\ThesisType}{master}
+    {\togglefalse{thesisbachelor}}
+    {\PackageError{thesis}
+      {Unknown ThesisType '\ThesisType'}
+      {Use 'bachelor' or 'master' in thesis-config.tex.}}}
+
+\newtoggle{thesisgerman}
+\ifdefstring{\ThesisLanguage}{german}
+  {\toggletrue{thesisgerman}}
+  {\ifdefstring{\ThesisLanguage}{english}
+    {\togglefalse{thesisgerman}}
+    {\PackageError{thesis}
+      {Unknown ThesisLanguage '\ThesisLanguage'}
+      {Use 'english' or 'german' in thesis-config.tex.}}}
+
+% "make draft" passes \def\ThesisDraftOverride{} ahead of the document.
+\newtoggle{thesisdraft}
+\ifdef{\ThesisDraftOverride}
+  {\toggletrue{thesisdraft}}
+  {\ifdefstring{\ThesisDraft}{true}
+    {\toggletrue{thesisdraft}}
+    {\ifdefstring{\ThesisDraft}{false}
+      {\togglefalse{thesisdraft}}
+      {\PackageError{thesis}
+        {Unknown ThesisDraft '\ThesisDraft'}
+        {Use 'true' or 'false' in thesis-config.tex.}}}}
+
+\newcommand{\IfBachelorTF}[2]{\iftoggle{thesisbachelor}{#1}{#2}}
+\newcommand{\IfGermanTF}[2]{\iftoggle{thesisgerman}{#1}{#2}}
+
+% Picks the English or the German wording of a fixed string.
+\newcommand{\ThesisText}[2]{\IfGermanTF{#2}{#1}}
+
+% ---------------------------------------------------------------------------
+% Language
+% ---------------------------------------------------------------------------
+% Both languages are always loaded so that the abstract and the Zusammenfassung
+% are each hyphenated correctly, whichever language the thesis itself uses.
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\IfGermanTF
+  {\RequirePackage[english,main=ngerman]{babel}}
+  {\RequirePackage[ngerman,main=english]{babel}}
+\RequirePackage[autostyle=true]{csquotes}
+
+% ---------------------------------------------------------------------------
+% Fixed strings
+% ---------------------------------------------------------------------------
+% Every piece of text the template itself contributes is defined here, so that
+% nothing has to be translated in a chapter file.
+
+\newcommand{\ThesisTypeName}{%
+  \IfBachelorTF
+    {\ThesisText{Bachelor's Thesis}{Bachelorarbeit}}
+    {\ThesisText{Master's Thesis}{Masterarbeit}}}
+
+\newcommand{\ThesisStrDepartment}{\ThesisText{at the Department of Applied Computer Science}{am Fachbereich Angewandte Informatik}}
+\newcommand{\ThesisStrUniversity}{\ThesisText{Fulda University of Applied Sciences}{Hochschule Fulda}}
+\newcommand{\ThesisStrSubmittedBy}{\ThesisText{SUBMITTED BY}{VORGELEGT VON}}
+\newcommand{\ThesisStrStudentId}{\ThesisText{STUDENT ID}{MATRIKELNUMMER}}
+\newcommand{\ThesisStrEmail}{\ThesisText{E-MAIL}{E-MAIL}}
+\newcommand{\ThesisStrProgram}{\ThesisText{STUDY PROGRAM}{STUDIENGANG}}
+\newcommand{\ThesisStrSupervisors}{\ThesisText{SUPERVISORS /\\REVIEWERS}{BETREUUNG /\\BEGUTACHTUNG}}
+\newcommand{\ThesisStrSubmissionDate}{\ThesisText{DATE OF SUBMISSION}{ABGABEDATUM}}
+\newcommand{\ThesisStrChapter}{\ThesisText{CHAPTER}{KAPITEL}}
+\newcommand{\ThesisStrChapterOverview}{\ThesisText{CHAPTER OVERVIEW}{KAPITELÜBERSICHT}}
+\newcommand{\ThesisStrReferences}{\ThesisText{References}{Literaturverzeichnis}}
+\newcommand{\ThesisStrAbstract}{Abstract}
+\newcommand{\ThesisStrSummary}{Zusammenfassung}
+\newcommand{\ThesisStrAcknowledgements}{\ThesisText{Acknowledgements}{Danksagung}}
+\newcommand{\ThesisStrDeclaration}{\ThesisText{Declaration of Authorship}{Eigenständigkeitserklärung}}
+\newcommand{\ThesisStrAppendix}{\ThesisText{Appendix}{Anhang}}
+\newcommand{\ThesisStrListing}{\ThesisText{Listing}{Quelltext}}
+\newcommand{\ThesisStrListOfListings}{\ThesisText{List of Listings}{Quelltextverzeichnis}}
+\newcommand{\ThesisStrAlgorithm}{\ThesisText{Algorithm}{Algorithmus}}
+\newcommand{\ThesisStrListOfAlgorithms}{\ThesisText{List of Algorithms}{Algorithmenverzeichnis}}
+\newcommand{\ThesisStrListOfAcronyms}{\ThesisText{List of Acronyms}{Abkürzungsverzeichnis}}
+\newcommand{\ThesisStrTitlePage}{\ThesisText{Title Page}{Titelseite}}
+\newcommand{\ThesisStrContents}{\ThesisText{Contents}{Inhaltsverzeichnis}}
+\newcommand{\ThesisStrPlaceDate}{\ThesisText{Place, date}{Ort, Datum}}
+\newcommand{\ThesisStrSignature}{\ThesisText{Signature}{Unterschrift}}
+
+% Use the configured submission date, or today's date in the selected language.
+\newcommand{\ResolvedThesisSubmissionDate}{%
+  \ifdefempty{\ThesisSubmissionDate}
+    {\today}
+    {\ThesisSubmissionDate}%
+}
+
+% ---------------------------------------------------------------------------
+% Packages
+% ---------------------------------------------------------------------------
+
+\RequirePackage{graphicx}
+\RequirePackage{microtype}
+\RequirePackage{setspace}
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{siunitx}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{enumitem}
+\RequirePackage{listings}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{scrlayer-scrpage}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning}
+\RequirePackage[
+  backend=biber,
+  style=numeric,
+  sorting=none,
+  maxbibnames=20,
+  giveninits=true,
+  doi=true,
+  url=true,
+  isbn=true
+]{biblatex}
+\RequirePackage[
+  unicode=true,
+  bookmarksopen=true,
+  bookmarksnumbered=true,
+  colorlinks=false,
+  linktoc=all
+]{hyperref}
+\RequirePackage{bookmark}
+
+\IfGermanTF
+  {\RequirePackage[ruled,vlined,linesnumbered,algochapter,german]{algorithm2e}}
+  {\RequirePackage[ruled,vlined,linesnumbered,algochapter,english]{algorithm2e}}
+\RequirePackage{acro}
+
+\IfGermanTF
+  {\RequirePackage[ngerman,nameinlink,noabbrev]{cleveref}}
+  {\RequirePackage[english,nameinlink,noabbrev]{cleveref}}
+
+% ---------------------------------------------------------------------------
+% Colors
+% ---------------------------------------------------------------------------
+% Defined ahead of draft mode, which colors its watermark with hpcgreen.
+
+\definecolor{hpcgreen}{HTML}{68B900}
+\definecolor{hpcblue}{HTML}{247DB3}
+\definecolor{hpcblack}{HTML}{17191B}
+\definecolor{hpcgray}{HTML}{6F7478}
+
+% Link text stays black; a thin colored border drawn by the PDF viewer marks what is clickable instead.
+% The border is part of the link annotation, not the page, so it never appears in print.
+% hyperref is loaded before these colors exist, so they are assigned here rather than as package options.
+\hypersetup{
+  pdfborder={0 0 1},
+  linkbordercolor=hpcblue,
+  citebordercolor=hpcblue,
+  urlbordercolor=hpcgreen
+}
+
+% Suppresses the link border boxes for the rest of the current group.
+% The table of contents and the lists use this: their entries are obviously clickable, so the boxes would be pure noise there, while body links keep their markers.
+\newcommand{\ThesisBorderlessLinks}{\hypersetup{pdfborder={0 0 0}}}
+
+% ---------------------------------------------------------------------------
+% Draft mode
+% ---------------------------------------------------------------------------
+% A draft build is for circulation and feedback, never for submission.
+% Line numbers in particular make it far easier to point at a specific sentence.
+\iftoggle{thesisdraft}{%
+  \RequirePackage[textwidth=2.4cm,textsize=footnotesize]{todonotes}
+  \RequirePackage{eso-pic}
+  \RequirePackage{lineno}
+  \newcommand{\thesis@draftmark}{%
+    \rotatebox{90}{%
+      \sffamily\bfseries\fontsize{13}{13}\selectfont
+      \color{hpcgreen}\ThesisText{DRAFT}{ENTWURF}%
+    }%
+  }
+  \AddToShipoutPictureBG{%
+    \AtPageLowerLeft{%
+      \put(\LenToUnit{13mm},\LenToUnit{.5\paperheight}){\makebox(0,0){\thesis@draftmark}}%
+      \put(\LenToUnit{\dimexpr\paperwidth-13mm\relax},\LenToUnit{.5\paperheight}){\makebox(0,0){\thesis@draftmark}}%
+    }%
+  }
+  \newcommand{\thesis@linenopatch}[1]{%
+    \expandafter\let\csname thesis@old#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\let\csname thesis@oldend#1\expandafter\endcsname\csname end#1\endcsname
+    \renewenvironment{#1}%
+      {\linenomath\csname thesis@old#1\endcsname}%
+      {\csname thesis@oldend#1\endcsname\endlinenomath}%
+  }
+  \AtBeginDocument{%
+    \thesis@linenopatch{equation}%
+    \thesis@linenopatch{align}%
+    \thesis@linenopatch{gather}%
+    \thesis@linenopatch{multline}%
+    \linenumbers
+  }%
+}{%
+  % \todo{...} stays valid but produces nothing in a normal build.
+  \RequirePackage[disable]{todonotes}
+}
+
+% ---------------------------------------------------------------------------
+% Typography
+% ---------------------------------------------------------------------------
+
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={\ThesisTitle},
+    pdfauthor={\ThesisAuthor},
+    pdfsubject={\ThesisTypeName},
+    pdfkeywords={\ThesisKeywords},
+    pdfcreator={LaTeX}
+  }%
+}
+
+\graphicspath{{figures/}}
+
+% Print-friendly spacing; no widows or orphans.
+\onehalfspacing
+\setlength{\emergencystretch}{2em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\setkomafont{disposition}{\normalfont\bfseries}
+\setkomafont{chapter}{\normalfont\bfseries\LARGE\color{hpcblack}}
+\setkomafont{section}{\normalfont\bfseries\Large}
+\setkomafont{subsection}{\normalfont\bfseries\large}
+\setkomafont{pageheadfoot}{\normalfont\small}
+\setkomafont{pagenumber}{\normalfont}
+
+\RedeclareSectionCommand[
+  beforeskip=0pt,
+  afterskip=1.4\baselineskip
+]{chapter}
+\RedeclareSectionCommand[
+  beforeskip=1.6\baselineskip,
+  afterskip=.65\baselineskip
+]{section}
+\RedeclareSectionCommand[
+  beforeskip=1.2\baselineskip,
+  afterskip=.45\baselineskip
+]{subsection}
+
+\clearpairofpagestyles
+\automark{chapter}
+\ihead{\textcolor{hpcgreen}{\rule{1.1ex}{1.1ex}}\hspace{.65em}\headmark}
+\ofoot*{\pagemark}
+\pagestyle{scrheadings}
+
+% Captions sit below every float in this template, so the caption skips are set for that position here, once; no float carries a \captionsetup of its own.
+\captionsetup{
+  font=small,
+  labelfont=bf,
+  format=plain,
+  position=bottom,
+  justification=centering,
+  singlelinecheck=true
+}
+
+% ---------------------------------------------------------------------------
+% Numbers and units
+% ---------------------------------------------------------------------------
+% \qty{3.2}{\giga\byte\per\second} and \num{1234567} keep every measurement in
+% the document formatted the same way, and S columns align result tables on the
+% decimal marker.
+
+\sisetup{
+  detect-all,
+  per-mode=symbol,
+  range-phrase={\ThesisText{ to }{ bis }},
+  range-units=single
+}
+\IfGermanTF{\sisetup{output-decimal-marker={,}}}{}
+
+% ---------------------------------------------------------------------------
+% Research questions
+% ---------------------------------------------------------------------------
+\newlist{ThesisResearchQuestions}{enumerate}{1}
+\setlist[ThesisResearchQuestions]{
+  label=\textbf{RQ\arabic*},
+  ref=RQ\arabic*,
+  leftmargin=*,
+  labelsep=1em,
+  itemsep=.5em
+}
+
+% ---------------------------------------------------------------------------
+% Contributions
+% ---------------------------------------------------------------------------
+\newlist{ThesisContribution}{enumerate}{1}
+\setlist[ThesisContribution]{
+  label=\textbf{C\arabic*},
+  ref=C\arabic*,
+  leftmargin=*,
+  labelsep=1em,
+  itemsep=.5em
+}
+
+% ---------------------------------------------------------------------------
+% Listings, algorithms, acronyms
+% ---------------------------------------------------------------------------
+
+% listings styles preprocessor directives (#pragma, #include) as their own keyword class and leaves them plain unless directivestyle is set.
+% The directivestyle key itself only exists once the directives aspect is loaded, which normally happens with the first language that uses it — after this \lstset has already failed.
+\lstloadaspects{directives}
+% Upstream, a directive is only recognized when its # sits in column 0 (the \ifnum\@tempcnta=\z@ test on \lst@CalcColumn), so an indented #pragma would stay unstyled.
+% The redefinition below is \lst@Delim@directive from lstmisc.sty verbatim, except that the column test is relaxed to accept any column.
+% A # inside a string or comment is still safe, because those modes take precedence over delimiter matching.
+\gdef\lst@Delim@directive#1\@empty#2#3#4{%
+    \lst@CArg #1\relax\lst@DefDelimB
+        {\lst@CalcColumn}%
+        {}%
+        {\ifnum\@tempcnta>\m@ne
+             \def\lst@bnext{#2\lst@CDmode{#4\lst@Lmodetrue}%
+                \let\lst@currstyle\lst@directivestyle}%
+ \fi
+ \@gobblethree}%
+        #2\lst@CDmode{#4\lst@Lmodetrue}}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{hpcblue},
+  directivestyle={\bfseries\color{hpcblue}},
+  commentstyle=\itshape\color{hpcgray},
+  stringstyle=\color{hpcgreen!65!black},
+  numbers=left,
+  numberstyle=\scriptsize\color{hpcgray},
+  numbersep=8pt,
+  xleftmargin=1.8em,
+  framexleftmargin=1.2em,
+  frame=leftline,
+  rulecolor=\color{hpcgreen},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b
+}
+\renewcommand{\lstlistingname}{\ThesisStrListing}
+\renewcommand{\lstlistlistingname}{\ThesisStrListOfListings}
+
+\SetAlgorithmName{\ThesisStrAlgorithm}{\ThesisStrAlgorithm}{\ThesisStrListOfAlgorithms}
+
+% algorithm2e's language option translates the float name but leaves \KwIn and \KwOut in English, so they are set here.
+% The option is "german" rather than "ngerman" because the latter puts a space before the colon, which is French typography, not German.
+% The control-flow keywords (for, while, return) stay English on purpose: that is the norm in German computer science writing, and half-translated pseudocode reads worse than consistently English.
+\IfGermanTF{%
+  \SetKwInput{KwIn}{Eingabe}%
+  \SetKwInput{KwOut}{Ausgabe}%
+  \SetKwInput{KwData}{Daten}%
+  \SetKwInput{KwResult}{Ergebnis}%
+}{}
+
+\acsetup{make-links=true}
+
+% cleveref knows the standard float types, but not these two.
+\AtBeginDocument{%
+  \IfGermanTF{%
+    \crefname{algocf}{Algorithmus}{Algorithmen}%
+    \Crefname{algocf}{Algorithmus}{Algorithmen}%
+    \crefname{lstlisting}{Quelltext}{Quelltexte}%
+    \Crefname{lstlisting}{Quelltext}{Quelltexte}%
+  }{%
+    \crefname{algocf}{Algorithm}{Algorithms}%
+    \Crefname{algocf}{Algorithm}{Algorithms}%
+    \crefname{lstlisting}{Listing}{Listings}%
+    \Crefname{lstlisting}{Listing}{Listings}%
+  }%
+}
+
+% ---------------------------------------------------------------------------
+% Empty lists are skipped
+% ---------------------------------------------------------------------------
+% A thesis without listings should not carry an empty List of Listings.
+% Every \addcontentsline records which list it fed, the flags are written to the
+% .aux file, and the next run reads them back before the front matter is typeset.
+% A list therefore appears from the second build onwards, which latexmk does anyway.
+
+\newtoggle{thesis@listhook}
+\toggletrue{thesis@listhook}
+
+\newcommand{\thesis@marklist}[1]{\expandafter\gdef\csname thesis@now@#1\endcsname{}}
+\newcommand{\ThesisListSeen}[1]{\expandafter\gdef\csname thesis@seen@#1\endcsname{}}
+
+\newcommand{\thesis@writelistflag}[1]{%
+  \@ifundefined{thesis@now@#1}{}{%
+    \immediate\write\@auxout{\string\ThesisListSeen{#1}}%
+  }%
+}
+
+\pretocmd{\addcontentsline}{\thesis@marklist{#1}}{}{\togglefalse{thesis@listhook}}
+
+% If the hook could not be installed, print every list rather than silently dropping one.
+\newcommand{\ThesisIfListSeen}[2]{%
+  \iftoggle{thesis@listhook}
+    {\@ifundefined{thesis@seen@#1}{}{#2}}
+    {#2}%
+}
+
+% acro does not feed \addcontentsline, so acronym use is recorded separately.
+% If a command cannot be patched, the flag is set right away, so the list is
+% printed rather than silently dropped.
+\newcommand{\thesis@markacronym}[1]{%
+  \pretocmd{#1}{\thesis@marklist{acr}}{}{\thesis@marklist{acr}}%
+}
+\thesis@markacronym{\ac}
+\thesis@markacronym{\acs}
+\thesis@markacronym{\acl}
+\thesis@markacronym{\acp}
+
+\AtEndDocument{%
+  \thesis@writelistflag{lof}%
+  \thesis@writelistflag{lot}%
+  \thesis@writelistflag{lol}%
+  \thesis@writelistflag{loa}%
+  \thesis@writelistflag{acr}%
+}
+
+% ---------------------------------------------------------------------------
+% Chapter opener
+% ---------------------------------------------------------------------------
+
+% Track appendix mode so the chapter badge shows A, B, ... instead of 01, 02.
+\newif\ifthesisappendix
+\pretocmd{\appendix}{\global\thesisappendixtrue}{}{}
+
+\newcommand{\ChapterBadgeNumber}{%
+  \ifthesisappendix
+    \thechapter
+  \else
+    \ifnum\value{chapter}<10 0\fi\arabic{chapter}%
+  \fi
+}
+
+% Restrained chapter opener.
+% Text starts on the following page.
+\newcommand{\ThesisChapter}[3]{%
+  \cleardoublepage
+  \refstepcounter{chapter}%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}%
+  \label{#2}%
+  \markboth{\thechapter\enskip #1}{\thechapter\enskip #1}%
+  \thispagestyle{empty}%
+
+  \vspace*{14mm}
+  \noindent
+  \begin{minipage}[t][.69\textheight][t]{\textwidth}
+    {\sffamily\bfseries\footnotesize\color{hpcgray}
+      \ThesisStrChapter\ \ChapterBadgeNumber\par}
+
+    \vspace{4mm}
+    \noindent
+    {\color{hpcgreen}\rule{.72\textwidth}{1.1pt}}%
+    {\color{hpcblue}\rule{.28\textwidth}{1.1pt}}
+
+    \vspace{29mm}
+
+    \noindent
+    {\fontsize{41}{41}\selectfont\bfseries\color{hpcgreen}
+      \ChapterBadgeNumber\par}
+
+    \vspace{8mm}
+
+    \noindent
+    {\raggedright\fontsize{27}{32}\selectfont
+      \bfseries\color{hpcblack}#1\par}
+
+    \vspace{22mm}
+
+    {\sffamily\bfseries\footnotesize\color{hpcblue}
+      \ThesisStrChapterOverview\par}
+    \vspace{5mm}
+    \noindent
+    \begin{minipage}[t]{4mm}
+      \vspace{0pt}
+      {\color{hpcgreen}\rule{2.2pt}{4.7\baselineskip}}
+    \end{minipage}
+    \hspace{3mm}
+    \begin{minipage}[t]{\dimexpr\linewidth-9mm\relax}
+      \vspace{0pt}
+      {\large\itshape\color{hpcblack}#3\par}
+    \end{minipage}
+
+    \vfill
+
+    \noindent{\color{hpcblack!20}\rule{\textwidth}{.5pt}}\par
+  \end{minipage}
+  \clearpage
+}
+
+\newcommand{\SignatureLine}[1]{%
+  \begin{minipage}[t]{.44\textwidth}
+    \vspace{1.2cm}
+    \hrule
+    \vspace{.35em}
+    \small #1
+  \end{minipage}
+}

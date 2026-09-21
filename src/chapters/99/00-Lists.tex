@@ -1,0 +1,40 @@
+% !TeX root = ../../Thesis.tex
+% Each list is printed only if it actually has entries, so a thesis without
+% listings or algorithms does not carry an empty list page.
+% The flags come from the previous build, so a newly added first figure shows up
+% in the List of Figures one latexmk pass later, which latexmk performs anyway.
+
+% Like the table of contents, the lists stay clickable but drop the link border boxes; the group ends at the bottom of this file.
+\begingroup
+\ThesisBorderlessLinks
+
+\ThesisIfListSeen{lof}{%
+  \cleardoublepage
+  \listoffigures
+}
+
+\ThesisIfListSeen{lot}{%
+  \cleardoublepage
+  \listoftables
+}
+
+\ThesisIfListSeen{lol}{%
+  \cleardoublepage
+  \lstlistoflistings
+}
+
+% algorithm2e does not honour the "listof=totoc" class option, so the List of
+% Algorithms is added to the table of contents by hand.
+\ThesisIfListSeen{loa}{%
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\protect\nonumberline\ThesisStrListOfAlgorithms}%
+  \listofalgorithms
+}
+
+\ThesisIfListSeen{acr}{%
+  \cleardoublepage
+  \printacronyms[heading=addchap, name=\ThesisStrListOfAcronyms]
+}
+
+\endgroup

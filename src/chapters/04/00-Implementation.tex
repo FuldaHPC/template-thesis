@@ -1,0 +1,47 @@
+% !TeX root = ../../Thesis.tex
+\ThesisChapter{\ThesisText{Implementation}{Implementierung}}{ch:implementation}
+  {TODO: Add a brief chapter overview. \\
+  This chapter describes the realization of the concept, the technologies used, and key implementation decisions.}
+
+% TODO: Describe the implementation of the concepts and architecture presented in the previous chapter.
+
+This chapter explains how the proposed solution was implemented in practice.
+It should describe the relevant technical details required to understand and reproduce the implementation.
+
+Possible contents include:
+\begin{itemize}
+  \item the selected programming languages, frameworks, libraries, and tools,
+  \item the implementation of the individual components,
+  \item the implementation of interfaces and communication mechanisms,
+  \item relevant data structures, algorithms, and processing steps,
+  \item configuration, deployment, and execution details, and
+  \item important implementation decisions, challenges, and limitations.
+\end{itemize}
+
+Focus on details that are relevant to the thesis and necessary to understand the implementation.
+Avoid describing trivial code or providing a complete source-code walkthrough.
+Relevant code excerpts may be included where they help explain important implementation details.
+
+The concepts and architecture chapter should describe the design of the solution, its components, responsibilities, and interactions.
+This chapter should focus on the concrete technical realization of that design.
+
+% Example for pseudocode typeset with algorithm2e.
+\section{\ThesisText{Example Algorithm}{Beispiel: Algorithmus}}
+\label{sec:example-algorithm}
+
+Pseudocode is the right level of detail whenever the idea matters more than the syntax of a particular programming language.
+Algorithm~\ref{alg:example-parallel-sum} states a block-wise parallel summation in this form.
+
+\begin{algorithm}[htbp]
+  \KwIn{Array $A$ with $n$ elements, thread count $p$}
+  \KwOut{Sum of all elements of $A$}
+  $\mathit{partial} \gets$ array of $p$ zeros\;
+  \ForEach(\tcp*[f]{in parallel}){thread $t \in \{0, \dots, p-1\}$}{
+    \For{$i \gets t \cdot n / p$ \KwTo $(t+1) \cdot n / p - 1$}{
+      $\mathit{partial}[t] \gets \mathit{partial}[t] + A[i]$\;
+    }
+  }
+  \Return $\sum_{t=0}^{p-1} \mathit{partial}[t]$\;
+  \caption{\ThesisText{Block-wise parallel summation of an array.}{Blockweise parallele Summation eines Arrays.}}
+  \label{alg:example-parallel-sum}
+\end{algorithm}

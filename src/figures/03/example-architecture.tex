@@ -1,0 +1,30 @@
+% !TeX root = ../../Thesis.tex
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    every node/.style={font=\small},
+    unit/.style={
+      draw, rounded corners=2pt, line width=.7pt,
+      minimum width=20mm, minimum height=8mm
+    },
+    master/.style={unit, draw=hpcgreen, fill=hpcgreen!8},
+    worker/.style={unit, draw=hpcblue, fill=hpcblue!8},
+    wire/.style={draw=hpcgray, line width=.7pt},
+    feed/.style={wire, ->, >=stealth}
+  ]
+    \node[master] (sched) {Scheduler};
+    \node[worker, below=11mm of sched] (n2) {Node 2};
+    \node[worker, left=7mm of n2] (n1) {Node 1};
+    \node[worker, right=7mm of n2] (n3) {Node 3};
+
+    % Vertical trunk, horizontal bus, then one drop per node.
+    \coordinate (bus) at ($(sched.south)!.5!(n2.north)$);
+    \draw[wire] (sched.south) -- (bus);
+    \draw[wire] (n1.north |- bus) -- (n3.north |- bus);
+    \foreach \n in {n1,n2,n3}{
+      \draw[feed] (\n.north |- bus) -- (\n.north);
+    }
+  \end{tikzpicture}
+  \caption{\ThesisText{Example architecture diagram drawn with TikZ: a scheduler distributing work to three compute nodes.}{Beispielhaftes Architekturdiagramm in TikZ: ein Scheduler verteilt Arbeit auf drei Rechenknoten.}}
+  \label{fig:example-architecture}
+\end{figure}

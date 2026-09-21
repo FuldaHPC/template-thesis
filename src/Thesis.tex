@@ -1,0 +1,50 @@
+\documentclass[
+  11pt,
+  a4paper,
+  twoside,
+  open=right,
+  cleardoublepage=empty,
+  BCOR=8mm,
+  DIV=12,
+  headsepline=true,
+  numbers=noenddot,
+  listof=totoc,
+  bibliography=totoc
+]{scrbook}
+
+\input{thesis-config}
+\usepackage{thesis}
+
+\addbibresource{references.bib}
+\input{acronyms}
+
+\begin{document}
+
+\frontmatter
+\input{chapters/00/00-Frontmatter}
+
+\mainmatter
+\input{chapters/01/00-Introduction}
+\input{chapters/02/00-Background}
+\input{chapters/03/00-Concepts}
+\input{chapters/04/00-Implementation}
+\input{chapters/05/00-Evaluation}
+\input{chapters/06/00-Discussion}
+\input{chapters/07/00-RelatedWork}
+\input{chapters/08/00-Conclusion}
+
+\cleardoublepage
+\printbibliography[
+  heading=bibintoc,
+  title={\ThesisStrReferences}
+]
+
+\input{chapters/99/00-Lists}
+
+\appendix
+\input{chapters/99/01-Appendix}
+
+\backmatter
+\input{chapters/99/02-Declaration}
+
+\end{document}

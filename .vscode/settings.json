@@ -1,0 +1,42 @@
+{
+  "//": "Shared LaTeX Workshop setup. Building goes through the Makefile, so the editor and the command line produce exactly the same PDF.",
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "make",
+      "command": "make",
+      "args": [],
+      "env": {}
+    },
+    {
+      "name": "make-draft",
+      "command": "make",
+      "args": ["draft"],
+      "env": {}
+    }
+  ],
+
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "make",
+      "tools": ["make"]
+    },
+    {
+      "name": "make draft",
+      "tools": ["make-draft"]
+    }
+  ],
+
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/out",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "never",
+
+  "//wrap": "Sources use one sentence per line, so lines are long by design. Soft wrapping keeps them readable without ever reflowing the file.",
+  "editor.wordWrap": "on",
+  "editor.rulers": [],
+
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.encoding": "utf8",
+  "files.eol": "\n"
+}

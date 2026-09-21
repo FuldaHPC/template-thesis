@@ -1,0 +1,72 @@
+% !TeX root = ../../Thesis.tex
+\ThesisChapter
+  {\ThesisText{Experiments and Evaluation}{Experimente und Evaluation}}
+  {ch:evaluation}
+  {TODO: Add a brief chapter overview. \\
+  This chapter describes the experimental setup, metrics, and data analysis and presents the results in a reproducible manner.}
+
+% TODO: Describe the experiments and present their results.
+
+This chapter reports how the solution was evaluated and what was measured.
+It presents results; it does not interpret them.
+
+Possible contents include:
+\begin{itemize}
+  \item the experimental setup and test environment,
+  \item the datasets, workloads, scenarios, or test cases used,
+  \item the selected metrics and evaluation criteria,
+  \item the procedure used to conduct the experiments, including how often each was repeated, and
+  \item the obtained results.
+\end{itemize}
+
+Describe the setup in enough detail that a reader could repeat the experiments and obtain the same numbers.
+Use tables, figures, and diagrams where they help to communicate the findings.
+
+Keep interpretation out of this chapter.
+Explaining what the numbers mean, why they differ from expectations, and how they compare with other approaches is the task of the discussion chapter.
+
+The implementation chapter describes how the solution was realized.
+This chapter describes how the implemented solution was examined.
+
+% Example for adding a table stored in the chapter-specific table folder.
+\section{\ThesisText{Example Result Presentation}{Beispiel: Ergebnisdarstellung}}
+\label{sec:example-result-presentation}
+\subsection{\ThesisText{Tabular Results}{Tabellarische Ergebnisse}}
+\label{sec:tabular-results}
+
+Table~\ref{tab:example-results} shows one possible presentation of scaling measurements.
+Numbers and units are set with siunitx, so a runtime of \qty{120.0}{\second} and a bandwidth of \qty{2.4}{\giga\byte\per\second} are formatted identically throughout the document.
+\input{tables/05/example-results}
+
+% Example for adding a diagram stored in the chapter-specific figure folder.
+\subsection{\ThesisText{Performance Plot}{Leistungsdiagramm}}
+\label{sec:performance-plot}
+
+Figure~\ref{fig:example-scaling} visualizes the same measurements and compares them with ideal scaling.
+\Cref{tab:example-results} and~\Cref{fig:example-scaling} thus present the same data in two forms.
+Unlike \verb|\ref|, \verb|\cref| prints the word \enquote{Table} or \enquote{Figure} itself, so a float that later changes type does not leave a wrong word behind in the running text.
+
+\textbf{Hint:} Whenever suitable, use gnuplot to create plots:~\url{https://www.gnuplot.info/}
+
+\textbf{Important:} Every figure generated entirely or partially using an AI-based tool must be explicitly identified and properly referenced.
+The use of AI must be clearly disclosed in the corresponding figure caption.
+
+\begin{figure}[htbp]
+  \centering
+  % \resizebox also scales the plot's labels; when the label size must match the document font exactly, set the size in the .gp file instead.
+  \resizebox{0.75\textwidth}{!}{\input{figures/05/example-scaling-diagram}}
+  \caption{\ThesisText{Example diagram comparing measured and ideal parallel scaling.}{Beispieldiagramm mit gemessener und idealer paralleler Skalierung.}}
+  \label{fig:example-scaling}
+\end{figure}
+
+% Example for adding source code stored in the chapter-specific listing folder.
+\subsection{\ThesisText{Source-Code Listing}{Quelltextauszug}}
+\label{sec:source-code-listing}
+Listing~\ref{lst:example-parallel-sum} demonstrates how source code can be included from a separate file with syntax highlighting and line numbers.
+
+\lstinputlisting[
+  float=htbp,
+  language=C,
+  caption={\ThesisText{Example OpenMP reduction for summing an array in parallel.}{Beispielhafte OpenMP-Reduktion zur parallelen Summation eines Arrays.}},
+  label={lst:example-parallel-sum}
+]{listings/05/example-parallel-sum.c}

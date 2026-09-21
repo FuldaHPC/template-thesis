@@ -1,0 +1,95 @@
+.DS_Store
+
+# Auxiliary build files live in tmp/ and are never committed.
+/tmp/
+
+# out/ holds the finished PDF, which is committed on purpose.
+# The draft PDF and the SyncTeX files beside it are not.
+out/*
+!out/.gitkeep
+!out/Thesis.pdf
+
+# In case an editor runs LaTeX outside out/.
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lol
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Stray builds of the main document. Figure PDFs under src/figures stay tracked.
+/*.pdf
+/src/*.pdf
+
+# JetBrains IDEs.
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code. settings.json is shared on purpose, everything else is personal.
+.vscode/*
+!.vscode/settings.json
+*.code-workspace
+
+# Zed. settings.json and tasks.json are shared on purpose, everything else is personal.
+.zed/*
+!.zed/settings.json
+!.zed/tasks.json
+
+.history/
+
+# Glossaries and acronyms.
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+
+# Algorithms, todonotes, index.
+*.loa
+*.tdo
+*.idx
+*.ilg
+*.ind
+
+# TikZ externalization, minted, svg.
+*.auxlock
+*.figlist
+_minted*/
+*.pyg
+svg-inkscape/
+
+# OS junk
+._*
+.Spotlight-V100
+.Trashes
+.directory
+.Trash-*
+
+# Other editors.
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+*.txss2
+.texpadtmp/
+*.sublime-workspace
+
+# Backup files.
+*.bak
+*.tmp
+
+# Left over when pdflatex converts an EPS itself.
+*-eps-converted-to.pdf

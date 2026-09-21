@@ -1,0 +1,23 @@
+% !TeX root = ../../Thesis.tex
+\pagestyle{empty}
+
+\input{chapters/00/01-Titlepage}
+
+\cleardoublepage
+\pagenumbering{Roman}
+\pagestyle{scrheadings}
+
+\input{chapters/00/02-Abstract}
+\input{chapters/00/03-Zusammenfassung}
+
+% Optional
+%\input{chapters/00/04-Acknowledgements}
+
+\cleardoublepage
+% An outline-only bookmark, like the one on the title page: the table of contents must not list itself.
+\pdfbookmark[0]{\ThesisStrContents}{contents}
+% The entries stay clickable; only the link border boxes are suppressed, since a table of contents is obviously clickable.
+\begingroup
+\ThesisBorderlessLinks
+\tableofcontents
+\endgroup

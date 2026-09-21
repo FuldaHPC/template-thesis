@@ -1,0 +1,45 @@
+{
+  "//": "Shared Zed setup for this template. The canonical build is the Makefile, exposed as tasks in .zed/tasks.json; texlab additionally does a fast incremental build on save so that forward search has an up-to-date PDF to jump into.",
+
+  "lsp": {
+    "texlab": {
+      "settings": {
+        "texlab": {
+          "build": {
+            "executable": "latexmk",
+            "args": [
+              "-synctex=1",
+              "-interaction=nonstopmode",
+              "-file-line-error",
+              "-pdf",
+              "%f"
+            ],
+            "onSave": true,
+            "forwardSearchAfter": true
+          },
+
+          "//forwardSearch": "Skim on macOS. Adjust the path for a non-default install, or swap in zathura, sioyek, okular or evince. Inverse search (PDF back to editor) is not auto-configured for Skim and needs a one-time manual setting inside Skim itself.",
+          "forwardSearch": {
+            "executable": "/Applications/Skim.app/Contents/SharedSupport/displayline",
+            "args": ["-r", "%l", "%p", "%f"]
+          },
+
+          "//chktex": "Off on purpose: this project has its own checks in make lint, and chktex would add a second, conflicting opinion.",
+          "chktex": {
+            "onOpenAndSave": false,
+            "onEdit": false
+          }
+        }
+      }
+    }
+  },
+
+  "//languages": "Sources use one sentence per line, so lines are long by design. Soft wrapping keeps them readable without ever reflowing the file.",
+  "languages": {
+    "LaTeX": {
+      "soft_wrap": "editor_width",
+      "remove_trailing_whitespace_on_save": true,
+      "ensure_final_newline_on_save": true
+    }
+  }
+}
