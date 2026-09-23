@@ -46,7 +46,7 @@ Both directories contain generated files that are replaced by the next build.
 ## Repository structure
 
 ```text
-thesis-template/
+template-thesis/
 ├── Makefile
 ├── README.md
 ├── LICENSE
